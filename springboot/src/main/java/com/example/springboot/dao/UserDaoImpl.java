@@ -13,7 +13,6 @@ import java.util.List;
 
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao {
 	
 
@@ -42,6 +41,7 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public void deleteUser(Long id) {
-		em.createQuery("DELETE FROM User WHERE ID=" + id ).executeUpdate();
+
+		em.createQuery("DELETE FROM User WHERE id= :id").setParameter("id",id).executeUpdate();
 	}
 }

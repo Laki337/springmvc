@@ -23,23 +23,22 @@ public class UserController {
 		return "users";
 	}
 	
-	@PostMapping("/{id}/delete")
+	@DeleteMapping("/{id}/delete")
 	public String usersDelete(@PathVariable(value = "id") Long id) {
+		System.err.println("AAA");
 		userService.deleteUser(id);
 		return "redirect:/users";
 	}
 	
 	@PostMapping("/createUser")
-	public String userAdd(String firstName, String lastName) {
-		userService.createUser(new User(firstName, lastName));
+	public String userAdd(@ModelAttribute("user") User user) {
+		userService.createUser(user);
 		return "redirect:/users";
 	}
-	@PostMapping ("/updateUsers")
-	public String updateDepartament(Long id, String firstName,String lastName){
-		User user = userService.getUserById(id);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
+	@PutMapping ("/updateUsers")
+	public String updateDepartament(@ModelAttribute("user") User user){
 		userService.updateUser(user);
+		
 		return "redirect:/users";
 	}
 }
